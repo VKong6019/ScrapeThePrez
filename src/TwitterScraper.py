@@ -5,8 +5,8 @@ import json
 key_file = open('./secretKeys.json', 'r')
 keys = json.loads(key_file.read())
 
-auth = tweepy.OAuthHandler(keys['consumer_key'], 'consumer_secret')
-auth.set_access_token('access_key', 'access_secret')
+auth = tweepy.OAuthHandler(keys['consumer_key'], keys['consumer_secret'])
+auth.set_access_token(keys['access_key'], keys['access_secret'])
 api = tweepy.API(auth)
 
 
