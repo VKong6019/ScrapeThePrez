@@ -7,9 +7,11 @@ import time
 
 from pip._vendor.distlib.compat import raw_input
 
-auth = tweepy.OAuthHandler("vJKlXHvf9oOmzeKPwDARmfxSV", "qrPSw7Gw65lv2V4KWWEhuKDpUPfVMinaGx7aIfzJ7Qie7K5DLH")
-auth.set_access_token("913178822-dycOPGPAGmGoeoZNFH4Jo6SV1tIJqClPMbv9h1MD",
-                      "44P7aFLvqWXrbXmFBzfJ1KPFCnef5PoCtKXtiLLjmerbh")
+key_file = open('./secretKeys.json', 'r')
+keys = json.loads(key_file.read())
+
+auth = tweepy.OAuthHandler(keys['consumer_key'], keys['consumer_secret'])
+auth.set_access_token(keys['access_key'], keys['access_secret'])
 api = tweepy.API(auth)
 
 
