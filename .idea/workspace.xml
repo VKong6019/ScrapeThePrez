@@ -20,6 +20,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/TwitterScraper.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\danuw\Documents\GitHub\ScrapeThePrez\src" />
+      <recent name="C:\Users\danuw\Documents\GitHub\ScrapeThePrez" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -67,5 +73,16 @@
       <updated>1565667735885</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
