@@ -123,8 +123,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# ignore secret key twitter dev account file
+# Do not share
 secretKeys.json
+config.py
 
 # for our mac users :)
 .DS_Store
