@@ -1,6 +1,11 @@
 import tweepy
-import datetime, time
 import json
+import csv
+import re
+import datetime
+import time
+
+from pip._vendor.distlib.compat import raw_input
 
 key_file = open('./secretKeys.json', 'r')
 keys = json.loads(key_file.read())
@@ -23,9 +28,28 @@ def get_tweet(input, username):
                 deadend = True
                 return
         if not deadend:
-            page + 1
+            page += 1
             time.sleep(500)
+
+def write_to_csv():
+    file = '_'.join(re.findall(r"#(\w+)", hashtag_phrase))
+
+    # open spreadsheet
+    with open('%s.csv' % (file), 'wb') as file:
+        w = csv.writer(file)
+        # write header row to spreadsheet
+        w.writerow(['timestamp', 'tweet_text', 'username', 'all_hashtags'])
+
+        # for each tweet matching our hashtags, write relevant info to spreadsheet
+        for tweet in tweepy.Cursor(api.search, q=hashtag_phrase+' -filter:retweets', \
+                             lang="en", tweet_mode='extended').items(100):
+            w.writerow([tweet.created_at, tweet.full_text.replace('\n',' ').encode('utf-8'), tweet.user.screen_name.encode('utf-8'),
+                        [e['text'] for e in tweet.json['entities']['hashtags']]])
+
+
 
 # we'll use elizabeth warren's acc to test
 get_tweet(api, "SenWarren")
 
+# write tweets with user-input hashtag phrase to csv file
+hashtag_phrase = raw_input('Hashtag phrase')
