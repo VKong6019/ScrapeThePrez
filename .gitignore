@@ -123,9 +123,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Do not share
+# Do not share.
 secretKeys.json
 config.py
 
 # for alex the legend :)
 .DS_Store
+
+# ignore Intellij config files.
+.idea
