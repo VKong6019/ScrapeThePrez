@@ -20,16 +20,20 @@ def get_tweet(input, username):
     page = 1
     deadend = False
     while True:
-        tweets = input.user_timeline(username, page=page)
+        tweets = input.user_timeline(username, page=page, include_rts=False, tweet_mode='extended')
         for tweet in tweets:
             if (datetime.datetime.now() - tweet.created_at).days < 2:
-                print(tweet.text.encode("utf-8"))
+                print(tweet.created_at)
+                print(tweet.full_text)
+                print("%d times retweeted" % tweet.retweet_count )
+
             else:
                 deadend = True
                 return
         if not deadend:
             page += 1
             time.sleep(500)
+
 
 def write_to_csv():
     file = '_'.join(re.findall(r"#(\w+)", hashtag_phrase))
@@ -41,11 +45,11 @@ def write_to_csv():
         w.writerow(['timestamp', 'tweet_text', 'username', 'all_hashtags'])
 
         # for each tweet matching our hashtags, write relevant info to spreadsheet
-        for tweet in tweepy.Cursor(api.search, q=hashtag_phrase+' -filter:retweets', \
-                             lang="en", tweet_mode='extended').items(100):
-            w.writerow([tweet.created_at, tweet.full_text.replace('\n',' ').encode('utf-8'), tweet.user.screen_name.encode('utf-8'),
+        for tweet in tweepy.Cursor(api.search, q=hashtag_phrase + ' -filter:retweets',
+                                   lang="en", tweet_mode='extended').items(100):
+            w.writerow([tweet.created_at, tweet.full_text.replace('\n', ' ').encode('utf-8'),
+                        tweet.user.screen_name.encode('utf-8'),
                         [e['text'] for e in tweet.json['entities']['hashtags']]])
-
 
 
 # we'll use elizabeth warren's acc to test
