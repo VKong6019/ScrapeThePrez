@@ -15,26 +15,33 @@ auth.set_access_token(keys['access_key'], keys['access_secret'])
 api = tweepy.API(auth)
 
 
-# testing to see if this can scrape some tweets
+# testing if function can write multiple entries in csv file
+# TODO: make the tweet in json to be able to scrape all the tweets
+# can only scrape a portion of warren's tweets rn
 def get_tweet(input, username):
-    page = 1
-    deadend = False
-    while True:
-        tweets = input.user_timeline(username, page=page, include_rts=False, tweet_mode='extended')
-        for tweet in tweets:
-            if (datetime.datetime.now() - tweet.created_at).days < 2:
-                # edit to format for write_to_csv func
-                print(tweet.created_at)
-                print(tweet.full_text)
-                text = tweet.full_text
-                write_to_csv(text)
-                print("%d times retweeted" % tweet.retweet_count)
-            else:
-                deadend = True
-                return
-        if not deadend:
-            page += 1
-            time.sleep(500)
+    tweets = input.user_timeline(username, count=200, include_rts=False, tweet_mode='extended')
+    tweet_storage = []
+    tweet_storage.extend(tweets)
+    old = tweet_storage[-1].id - 1
+    while len(tweets) > 0:
+        tweets = input.user_timeline(username, count=200, include_rts=False, tweet_mode='extended', max_id=old)
+        tweet_storage.extend(tweets)
+        old = tweet_storage[-1].id - 1
+    to_csv = [[tweet.created_at, tweet.full_text.encode("utf-8")] for tweet in tweet_storage]
+    with open('tweet_data.csv', 'wb') as f:
+        to_write = csv.writer(f)
+        to_write.writerows(["created_at", "full_text"])
+        to_write.writerows(to_csv)
+    pass
+
+    # for tweet in tweets:
+    #     # if (datetime.datetime.now() - tweet.created_at).days < 3:
+    #     # edit to format for write_to_csv func
+    #     print(tweet.created_at)
+    #     print(tweet.full_text)
+    #     tweet_data.write("%s, %s\n" % (tweet.created_at, tweet.full_text.encode('utf-8')))
+    #     cnt += 1
+    #     print("%d tweets" % cnt)
 
 
 # update and upgrade this so that:
