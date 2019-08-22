@@ -14,7 +14,6 @@ auth = tweepy.OAuthHandler(keys['consumer_key'], keys['consumer_secret'])
 auth.set_access_token(keys['access_key'], keys['access_secret'])
 api = tweepy.API(auth)
 
-
 # testing if function can write multiple entries in csv file
 # can only scrape a portion of warren's tweets rn
 def get_tweet(key, username):
@@ -51,6 +50,7 @@ def write_to_csv(text):
 
     # we'll use elizabeth warren's acc to test
     get_tweet(api, "SenWarren")
+    # get_tweet(api, "SenSanders")
 
     # file = '_'.join(re.findall(r"#(\w+)", hashtag_phrase))
     #
@@ -66,10 +66,3 @@ def write_to_csv(text):
     #         w.writerow([tweet.created_at, tweet.full_text.replace('\n', ' ').encode('utf-8'),
     #                     tweet.user.screen_name.encode('utf-8'),
     #                     [e['text'] for e in tweet.json['entities']['hashtags']]])
-
-
-# we'll use elizabeth warren's acc to test
-get_tweet(api, "ewarren")
-
-# write tweets with user-input hashtag phrase to csv file
-# hashtag_phrase = raw_input('Hashtag phrase')
