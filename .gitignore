@@ -205,5 +205,5 @@ fabric.properties
 .firebaserc
 database.rules.json
 firebase.json
-serviceAccountKeys.json
+src/serviceAccountKeys.json
 init.js

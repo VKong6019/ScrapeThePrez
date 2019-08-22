@@ -35,7 +35,7 @@ with open(file) as csv_file:
             line_count += 1
     print(f'Processed {line_count} lines.')
 
-for batched_data in batch_data(data, 999):
+for batched_data in batch_data(data, 200):
     batch = firestore.batch()
     for data_item in batched_data:
         doc_ref = firestore.collection(candidate_tweets).document()
