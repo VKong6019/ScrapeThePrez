@@ -9,11 +9,13 @@ app = firebase_admin.initialize_app(cred)
 
 firestore = firestore.client()
 
+
 # batches data into bulks
 def batch_data(iterable, n=1):
     l = len(iterable)
     for ndx in range(0, l, n):
         yield iterable[ndx:min(ndx + n, l)]
+
 
 file = "fake_data.csv"
 candidate_tweets = "candidates"
@@ -26,10 +28,11 @@ with open(file) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 0
     for row in csv_reader:
-    # case for recording column labels - organization
+        # case for recording column labels - organization
         headers.append("name")
         headers.append("time")
         headers.append("text")
+        headers.append("keywords")
         obj = {}
         for idx, item in enumerate(row):
             obj[headers[idx]] = item
@@ -46,6 +49,4 @@ for batched_data in batch_data(data, 10):
     batch.commit()
 
 print('Done')
-
-
 

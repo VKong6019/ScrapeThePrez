@@ -30,9 +30,12 @@ def get_tweet(key, username):
         old = tweet_storage[-1].id - 1
 
     # csv file sorted by columns: name, time, text
-    to_csv = [json.dumps({'name': tweet.user.screen_name, 'time': tweet.created_at.__str__(), 'text': tweet.full_text})
+    to_csv = [json.dumps({'name': tweet.user.screen_name,
+                          'time': tweet.created_at.__str__(),
+                          'text': replace_unicode(tweet.full_text),
+                          'keywords': parse_text(replace_unicode(tweet.full_text))})
               for tweet in tweet_storage]
-
+    print(to_csv[1])
     # writes into rows as json objects
     with open('tweet_data.csv', 'a') as f:
         to_write = csv.writer(f)
@@ -40,6 +43,20 @@ def get_tweet(key, username):
                      for item in to_csv]
         to_write.writerows(json_data)
     pass
+
+
+def parse_text(tweet_text):
+    text_array = []
+    for text in tweet_text.replace(".", "").split():
+        text_array.append(text)
+
+    return text_array
+
+
+def replace_unicode(tweet_text):
+    return tweet_text.replace(u"\u2019", "’").replace(u"\u2018", "‘").replace(u"\u2013", "-")\
+        .replace(u"\u2014", "—").replace(u"\u2015", "―").replace(u"&amp;", "&")
+
 
 # we'll use elizabeth warren's acc to test
 get_tweet(api, "SenWarren")
