@@ -35,11 +35,12 @@ def get_tweet(key, username):
                           'text': replace_unicode(tweet.full_text),
                           'keywords': parse_text(replace_unicode(tweet.full_text))})
               for tweet in tweet_storage]
-    print(to_csv[1])
+
     # writes into rows as json objects
     with open('tweet_data.csv', 'a') as f:
         to_write = csv.writer(f)
-        json_data = [[json.loads(item)['name'], json.loads(item)['time'], json.loads(item)['text'].encode("utf-8")]
+        json_data = [[json.loads(item)['name'], json.loads(item)['time'], json.loads(item)['text'].encode("utf-8"),
+                      json.loads(item)['keywords']]
                      for item in to_csv]
         to_write.writerows(json_data)
     pass
