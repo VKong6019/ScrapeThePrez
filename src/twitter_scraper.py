@@ -3,19 +3,23 @@ import json
 import firebase_admin
 from firebase_admin import credentials, firestore
 
+# i've got a secret secret
 key_file = open('./secretKeys.json', 'r')
 keys = json.loads(key_file.read())
 
 cred = credentials.Certificate("./serviceAccountKeys.json")
 app = firebase_admin.initialize_app(cred)
 
-database = firestore.client()
-candidate_collection = database.collection('candidates')
-tweet_transaction = database.transaction()
-
 auth = tweepy.OAuthHandler(keys['consumer_key'], keys['consumer_secret'])
 auth.set_access_token(keys['access_key'], keys['access_secret'])
 api = tweepy.API(auth)
+
+# firestore object
+database = firestore.client()
+candidate_collection = database.collection('candidates')
+
+# it's a surprise tool that will help us later (transactions for doc read/write operations)
+tweet_transaction = database.transaction()
 
 
 # testing if function can write multiple entries in csv file
@@ -33,12 +37,8 @@ def get_tweet(key, username):
         tweet_storage.extend(tweets)
         old = tweet_storage[-1].id - 1
 
+    # adds each tweet in Firestore as part of the "tweets" collection of respective candidates
     for tweet in tweet_storage:
-        # tweet array
-
-        # json.dumps()
-        # scraped_tweets = [json.dumps({})
-
         candidate_collection.document(username).collection('tweets').add({
             'name': tweet.user.screen_name,
             'time': tweet.created_at.__str__(),
@@ -46,26 +46,8 @@ def get_tweet(key, username):
             'keywords': parse_text(replace_unicode(tweet.full_text))
         })
 
-        ### OLD CODE
-        # csv file sorted by columns: name, time, text
-        # to_csv = [json.dumps({'name': tweet.user.screen_name,
-        #                       'time': tweet.created_at.__str__(),
-        #                       'text': replace_unicode(tweet.full_text),
-        #                       'keywords': parse_text(replace_unicode(tweet.full_text))})
-        #           for tweet in tweet_storage]
 
-        # writes into rows as json objects
-        # with open('tweet_data.csv', 'a') as f:
-        #     to_write = csv.writer(f)
-        #     json_data = [[json.loads(item)['name'], json.loads(item)['time'], json.loads(item)['text'].encode("utf-8"),
-        #                   json.loads(item)['keywords']]
-        #                  for item in to_csv]
-        #     to_write.writerows(json_data)
-        # pass
-
-        # creates a text array for indexing
-
-
+# text parser to make indexable keywords array
 def parse_text(tweet_text):
     text_array = []
     for text in tweet_text.replace(".", "").split():
@@ -82,6 +64,6 @@ def replace_unicode(tweet_text):
 
 # we'll use elizabeth warren's acc to test
 get_tweet(api, "SenWarren")
-# get_tweet(api, "SenSanders")
+get_tweet(api, "SenSanders")
 
 # get_tweet(input("Search twitter handle: "))
