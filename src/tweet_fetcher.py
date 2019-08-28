@@ -1,4 +1,3 @@
-import json
 import firebase_admin
 from firebase_admin import credentials, firestore
 
@@ -6,8 +5,7 @@ cred = credentials.Certificate("./serviceAccountKeys.json")
 app = firebase_admin.initialize_app(cred)
 
 database = firestore.client()
-candidate_collection = database.collection(u'candidates')
-
+candidate_collection = database.collection(u'candidates').document('SenWarren').collection('tweets')
 
 # an attempt to query the database
 def query_tweets(keyword, candidate):
@@ -39,3 +37,4 @@ def parse_text(tweet_text):
 
 
 query_tweets("skinny", "SenWarren")
+query_tweets('Puerto', "SenSanders")

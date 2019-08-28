@@ -23,7 +23,6 @@ tweet_transaction = database.transaction()
 
 
 # testing if function can write multiple entries in csv file
-# can only scrape a portion of warren's tweets rn
 def get_tweet(key, username):
     tweets = key.user_timeline(username, count=200, include_rts=False, tweet_mode='extended')
     tweet_storage = []
@@ -37,7 +36,8 @@ def get_tweet(key, username):
         tweet_storage.extend(tweets)
         old = tweet_storage[-1].id - 1
 
-    # adds each tweet in Firestore as part of the "tweets" collection of respective candidates
+# adds tweets to database
+def add_to_database(username, tweet_storage):
     for tweet in tweet_storage:
         candidate_collection.document(username).collection('tweets').add({
             'name': tweet.user.screen_name,
@@ -46,15 +46,14 @@ def get_tweet(key, username):
             'keywords': parse_text(replace_unicode(tweet.full_text))
         })
 
-
 # text parser to make indexable keywords array
+# converts a string into an array of words
 def parse_text(tweet_text):
     text_array = []
-    for text in tweet_text.replace(".", "").split():
+    for text in tweet_text.replace(".", "").replace('"', '').split():
         text_array.append(text)
 
     return text_array
-
 
 # replaces ugly unicode with human-friendly text
 def replace_unicode(tweet_text):
@@ -62,8 +61,35 @@ def replace_unicode(tweet_text):
         .replace(u"\u2014", "—").replace(u"\u2015", "―").replace(u"&amp;", "&")
 
 
-# we'll use elizabeth warren's acc to test
+# scrape the latest tweets given a time and user
+def scrape_recent(time, username):
+    tweets = api.user_timeline(username, count=200, include_rts=False, tweet_mode='extended')
+    new_tweets = []
+
+    for tweet in tweets:
+        if compare_time(time, tweet.created_at.__str__):
+            new_tweets.append(tweet)
+        else:
+            break
+
+    add_to_database(username, new_tweets)
+
+
+# compare two times and return whether the first is older than the second
+def compare_time(first_time, second_time):
+    first_arr = first_time.replace('-', ' ').replace(':', ' ').split()
+    second_arr = second_time.replace('-', ' ').replace(':', ' ').split()
+
+    if first_time == second_time:
+        return False
+
+    for num in range(len(first_arr)):
+        if int(first_arr[num]) > int(second_arr[num]):
+            return False
+
+    return True
+
 get_tweet(api, "SenWarren")
 get_tweet(api, "SenSanders")
 
-# get_tweet(input("Search twitter handle: "))
+print(compare_time('2019-05-01 16:21:11', '2019-06-01 16:21:11'))
