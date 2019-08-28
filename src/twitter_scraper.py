@@ -19,7 +19,6 @@ api = tweepy.API(auth)
 
 
 # testing if function can write multiple entries in csv file
-# can only scrape a portion of warren's tweets rn
 def get_tweet(key, username):
     tweets = key.user_timeline(username, count=200, include_rts=False, tweet_mode='extended')
     tweet_storage = []
@@ -33,12 +32,20 @@ def get_tweet(key, username):
         tweet_storage.extend(tweets)
         old = tweet_storage[-1].id - 1
 
+    add_to_database(username, tweet_storage)
+
+    # for tweet in tweet_storage:
+    #     candidate_collection.document(username).collection('tweets').add({
+    #         'name': tweet.user.screen_name,
+    #         'time': tweet.created_at.__str__(),
+    #         'text': replace_unicode(tweet.full_text),
+    #         'keywords': parse_text(replace_unicode(tweet.full_text))
+    #     })
+
+
+# adds tweets to database
+def add_to_database(username, tweet_storage):
     for tweet in tweet_storage:
-        # tweet array
-
-        # json.dumps()
-        # scraped_tweets = [json.dumps({})
-
         candidate_collection.document(username).collection('tweets').add({
             'name': tweet.user.screen_name,
             'time': tweet.created_at.__str__(),
@@ -46,29 +53,11 @@ def get_tweet(key, username):
             'keywords': parse_text(replace_unicode(tweet.full_text))
         })
 
-        ### OLD CODE
-        # csv file sorted by columns: name, time, text
-        # to_csv = [json.dumps({'name': tweet.user.screen_name,
-        #                       'time': tweet.created_at.__str__(),
-        #                       'text': replace_unicode(tweet.full_text),
-        #                       'keywords': parse_text(replace_unicode(tweet.full_text))})
-        #           for tweet in tweet_storage]
 
-        # writes into rows as json objects
-        # with open('tweet_data.csv', 'a') as f:
-        #     to_write = csv.writer(f)
-        #     json_data = [[json.loads(item)['name'], json.loads(item)['time'], json.loads(item)['text'].encode("utf-8"),
-        #                   json.loads(item)['keywords']]
-        #                  for item in to_csv]
-        #     to_write.writerows(json_data)
-        # pass
-
-        # creates a text array for indexing
-
-
+# converts a string into an array of words
 def parse_text(tweet_text):
     text_array = []
-    for text in tweet_text.replace(".", "").split():
+    for text in tweet_text.replace(".", "").replace('"', '').split():
         text_array.append(text)
 
     return text_array
@@ -80,8 +69,35 @@ def replace_unicode(tweet_text):
         .replace(u"\u2014", "—").replace(u"\u2015", "―").replace(u"&amp;", "&")
 
 
-# we'll use elizabeth warren's acc to test
-get_tweet(api, "SenWarren")
-# get_tweet(api, "SenSanders")
+# scrape the latest tweets given a time and user
+def scrape_recent(time, username):
+    tweets = api.user_timeline(username, count=200, include_rts=False, tweet_mode='extended')
+    new_tweets = []
 
-# get_tweet(input("Search twitter handle: "))
+    for tweet in tweets:
+        if compare_time(time, tweet.created_at.__str__):
+            new_tweets.append(tweet)
+        else:
+            break
+
+    add_to_database(username, new_tweets)
+
+
+# compare two times and return whether the first is older than the second
+def compare_time(first_time, second_time):
+    first_arr = first_time.replace('-', ' ').replace(':', ' ').split()
+    second_arr = second_time.replace('-', ' ').replace(':', ' ').split()
+
+    if first_time == second_time:
+        return False
+
+    for num in range(len(first_arr)):
+        if int(first_arr[num]) > int(second_arr[num]):
+            return False
+
+    return True
+
+
+get_tweet(api, "SenWarren")
+
+print(compare_time('2019-05-01 16:21:11', '2019-06-01 16:21:11'))
