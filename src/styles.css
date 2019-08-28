@@ -3,7 +3,12 @@ h1 {
     font-family: Helvetica;
 }
 
+#content {
+    text-align: center;
+}
+
 .logo {
+    padding: 20px;
     width: 500px;
     height: 500px;
 }

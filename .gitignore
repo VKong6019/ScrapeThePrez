@@ -202,6 +202,8 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 # Google Firebase
+.firebase/
+.firebase/hosting.c3Jj.cache
 .firebaserc
 database.rules.json
 firebase.json

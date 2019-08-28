@@ -83,6 +83,7 @@ def compare_time(first_time, second_time):
     if first_time == second_time:
         return False
 
+    # checks if all the numbers are bigger or not
     for num in range(len(first_arr)):
         if int(first_arr[num]) > int(second_arr[num]):
             return False
