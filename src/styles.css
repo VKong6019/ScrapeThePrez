@@ -1,4 +1,12 @@
 /* Colorful and beautiful */
+h1 {
+    font-family: Helvetica;
+}
+
+.logo {
+    width: 500px;
+    height: 500px;
+}
 
 .bar {
     overflow: hidden;
