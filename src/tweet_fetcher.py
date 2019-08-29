@@ -3,34 +3,14 @@ import cgitb
 
 import firebase_admin
 from firebase_admin import credentials, firestore
-from flask import Flask, render_template, request
 
-from src.tweet_scraper import scrape_recent
+from src.tweet_scraper import scrape_recent, parse_text
 
 cred = credentials.Certificate("./serviceAccountKeys.json")
-app = firebase_admin.initialize_app(cred)
+firebase_app = firebase_admin.initialize_app(cred)
 
 database = firestore.client()
 candidate_collection = database.collection(u'candidates')
-
-web_server = Flask(__name__)
-
-
-@web_server.route('/')
-def website():
-    return render_template('index.html')
-
-
-@web_server.route('/result', methods=['POST', 'GET'])
-def result():
-    if request.method == 'POST':
-        result = request.form['keywords']
-        print(result)
-        return "success"
-
-
-if __name__ == '__main__':
-    web_server.run(debug=True)
 
 
 # an attempt to query the database
@@ -57,15 +37,6 @@ def query_tweets(search_term, candidate):
             if all(elem in item.get('keywords') for elem in keyword_array):
                 # grabs all tweets with keyword
                 print(item.get('text'))
-
-
-# text parser to make indexable keywords array
-def parse_text(tweet_text):
-    text_array = []
-    for text in tweet_text.replace(".", "").split():
-        text_array.append(text)
-
-    return text_array
 
 
 def search_form():

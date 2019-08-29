@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/styles.css') }}">
 
     <title>ScrapeThePrez - Search the President's Tweets!</title>
     <!-- update the version number as needed -->
@@ -34,15 +34,6 @@
 </head>
 
 <body>
-<!--<div id="message">-->
-<!--    <h2>Welcome</h2>-->
-<!--    <h1>Firebase Hosting Setup Complete</h1>-->
-<!--    <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something-->
-<!--        extraordinary!</p>-->
-<!--    <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>-->
-<!--</div>-->
-
-<!--<p id="load">Firebase SDK Loading&hellip;</p>-->
 
 <div id="content">
     <h1>Scrape The Prez! Coming to a duck near you</h1>
@@ -51,7 +42,7 @@
     <form>
         <input id="bar" name="keywords" type="text" placeholder="Search for candidates...">
     </form>
-    <img class="logo" src="/ScrapeThePrez/pictures/normal_size_logo.png"/>
+    <img class="logo" src="/website/static/pictures/normal_size_logo.png"/>
 </div>
 
 
