@@ -4,10 +4,10 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 
 # i've got a secret secret
-key_file = open('./secretKeys.json', 'r')
+key_file = open('./src/secretKeys.json', 'r')
 keys = json.loads(key_file.read())
 
-cred = credentials.Certificate("./serviceAccountKeys.json")
+cred = credentials.Certificate("./src/serviceAccountKeys.json")
 app = firebase_admin.initialize_app(cred)
 
 auth = tweepy.OAuthHandler(keys['consumer_key'], keys['consumer_secret'])
@@ -101,6 +101,6 @@ def compare_time(first_time, second_time):
     return True
 
 
-get_tweet(api, "ewarren")
-scrape_recent('2019-08-28 20:00:00', 'ewarren')
+# get_tweet(api, "Danickyflash")
+# scrape_recent('2019-08-28 20:00:00', 'Danickyflash')
 print('finito')
