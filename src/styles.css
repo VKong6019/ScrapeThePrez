@@ -13,7 +13,7 @@ h1 {
     height: 500px;
 }
 
-.bar {
+#bar {
     overflow: hidden;
     width: 750px;
     height: 50px;

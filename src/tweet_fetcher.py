@@ -3,6 +3,7 @@ import cgitb
 
 import firebase_admin
 from firebase_admin import credentials, firestore
+from flask import Flask, render_template, request
 
 cred = credentials.Certificate("./serviceAccountKeys.json")
 app = firebase_admin.initialize_app(cred)
@@ -10,11 +11,25 @@ app = firebase_admin.initialize_app(cred)
 database = firestore.client()
 candidate_collection = database.collection(u'candidates')
 
-# connects searchbar to CGI
-cgitb.enable()
-search_form = cgi.FieldStorage()
+web_server = Flask(__name__)
 
-keyword = search_form.getvalue('keywords')
+
+@web_server.route('/')
+def website():
+    return render_template('index.html')
+
+
+@web_server.route('/result', methods=['POST', 'GET'])
+def result():
+    if request.method == 'POST':
+        result = request.form['keywords']
+        print(result)
+        return "success"
+
+
+if __name__ == '__main__':
+    web_server.run(debug=True)
+
 
 # an attempt to query the database
 def query_tweets(keyword, candidate):
@@ -46,10 +61,17 @@ def parse_text(tweet_text):
     return text_array
 
 
-# Display results on website
-print('Content-Type:text/html\n')
-print("<h1>Results</h1>")
-query_tweets(keyword, "SenWarren")
+def search_form():
+    # connects searchbar to CGI
+    cgitb.enable()
+    search_form = cgi.FieldStorage()
+
+    keyword = search_form.getvalue('keywords')
+    # Display results on website
+    print('Content-Type:text/html\n')
+    print("<h1>Results</h1>")
+    print("<FORM method='post' method='tweet_fetcher.py'")
+    query_tweets(keyword, "SenWarren")
 
 # query_tweets("More than 2000", "SenWarren")
 # query_tweets('Puerto', "SenSanders")
