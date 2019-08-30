@@ -47,7 +47,7 @@
     <h1>Scrape The Prez! Coming to a duck near you</h1>
 
     <!-- Customize the Searchbar! -->
-    <form>
+    <form action="/" method="post">
         <input id="bar" name="keywords" type="text" placeholder="Search for candidates...">
         <a class="search-icon" href="#">
             <i class="fas fa-search"></i>
@@ -58,11 +58,8 @@
 </div>
 
 <div id="tweets">
-    {% for tweet in tweets %}
-    <h4>{{ tweet.name }}</h4>
-    <h6>{{ tweet.time }} </h6>
-    <p>{{ tweet.text }} </p>
-    {% endfor %}
+    <h1>i exist</h1>
+    {{ tweet }}
 </div>
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
