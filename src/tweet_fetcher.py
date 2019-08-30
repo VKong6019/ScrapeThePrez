@@ -23,6 +23,7 @@ def query_tweets(search_term, candidate):
 
     keyword_array = parse_text(search_term)
 
+    # TODO: make queries non case-sensitive
     # sadly uses multiple queries to search individual words in keyword
     for word in keyword_array:
         # multiple queries for multiple words
@@ -35,20 +36,5 @@ def query_tweets(search_term, candidate):
                 return item.get('text')
 
     print('finito')
-
-
-# old code
-def search_form():
-    # connects searchbar to CGI
-    cgitb.enable()
-    search_form = cgi.FieldStorage()
-
-    keyword = search_form.getvalue('keywords')
-    # Display results on website
-    print('Content-Type:text/html\n')
-    print("<h1>Results</h1>")
-    print("<FORM method='post' method='tweet_fetcher.py'")
-    query_tweets(keyword, "Danickyflash")
-
 
 query_tweets('SCRAPE', 'Danickyflash')
