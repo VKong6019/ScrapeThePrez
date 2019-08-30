@@ -3,9 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <!--    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">-->
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
 
     <title>ScrapeThePrez - Search the President's Tweets!</title>
+
+    <script src="https://kit.fontawesome.com/bf4e573b8b.js"></script>
     <!-- update the version number as needed -->
     <script src="https://scrapetheprez.firebaseapp.com/__/firebase/6.4.2/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
@@ -28,8 +31,12 @@
       #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
       @media (max-width: 600px) {
         body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
+        body { border-top: 16px solid #E0162B; }
       }
+
+
+
+
 
     </style>
 </head>
@@ -42,8 +49,12 @@
     <!-- Customize the Searchbar! -->
     <form>
         <input id="bar" name="keywords" type="text" placeholder="Search for candidates...">
+        <a class="search-icon" href="#">
+            <i class="fas fa-search"></i>
+        </a>
     </form>
     <img class="logo" src="/static/pictures/normal_size_logo.png"/>
+
 </div>
 
 <div id="tweets">
@@ -83,6 +94,7 @@
           document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
       });
+
 
 </script>
 </body>
