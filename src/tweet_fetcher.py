@@ -5,13 +5,14 @@ from firebase_admin import credentials, firestore
 
 from src.tweet_scraper import scrape_recent, parse_text
 
-cred = credentials.Certificate("./src/serviceAccountKeys.json")
+cred = credentials.Certificate("./serviceAccountKeys.json")
 
 database = firestore.client()
 candidate_collection = database.collection(u'candidates')
 
 
-# an attempt to query the database
+# TODO: return an array of json tweets instead of texts
+# query the database given a keyword(s) and a candidate
 def query_tweets(search_term, candidate):
     for doc in candidate_collection.list_documents():
         scrape_recent(candidate_collection.document(doc.id)
@@ -33,6 +34,8 @@ def query_tweets(search_term, candidate):
                 # grabs all tweets with keyword
                 return item.get('text')
 
+    print('finito')
+
 
 # old code
 def search_form():
@@ -46,3 +49,6 @@ def search_form():
     print("<h1>Results</h1>")
     print("<FORM method='post' method='tweet_fetcher.py'")
     query_tweets(keyword, "Danickyflash")
+
+
+query_tweets('SCRAPE', 'Danickyflash')
