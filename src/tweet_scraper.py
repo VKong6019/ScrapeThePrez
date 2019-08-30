@@ -1,13 +1,14 @@
 import tweepy
 import json
 import firebase_admin
+import datetime
 from firebase_admin import credentials, firestore
 
 # i've got a secret secret
-key_file = open('./src/secretKeys.json', 'r')
+key_file = open('./secretKeys.json', 'r')
 keys = json.loads(key_file.read())
 
-cred = credentials.Certificate("./src/serviceAccountKeys.json")
+cred = credentials.Certificate("./serviceAccountKeys.json")
 app = firebase_admin.initialize_app(cred)
 
 auth = tweepy.OAuthHandler(keys['consumer_key'], keys['consumer_secret'])
@@ -73,7 +74,7 @@ def replace_unicode(tweet_text):
 
 # scrape the latest tweets given a time and user
 def scrape_recent(time, username):
-    tweets = api.user_timeline(username, count=50, include_rts=False, tweet_mode='extended')
+    tweets = api.user_timeline(username, count=20, include_rts=False, tweet_mode='extended')
     new_tweets = []
 
     for tweet in tweets:
@@ -93,14 +94,19 @@ def compare_time(first_time, second_time):
     if first_time == second_time:
         return False
 
-    # checks if all the numbers are bigger or not
-    for num in range(len(first_arr)):
-        if int(first_arr[num]) > int(second_arr[num]):
-            return False
+    if datetime.date(int(first_arr[0]), int(first_arr[1]), int(first_arr[2])) \
+            > datetime.date(int(second_arr[0]), int(second_arr[1]), int(second_arr[2])):
+        return False
+    elif datetime.date(int(first_arr[0]), int(first_arr[1]), int(first_arr[2])) \
+            == datetime.date(int(second_arr[0]), int(second_arr[1]), int(second_arr[2])):
+        return convert_to_sec(first_arr[3], first_arr[4], first_arr[5]) \
+               > convert_to_sec(second_arr[3], second_arr[4], second_arr[5])
 
     return True
 
 
-# get_tweet(api, "Danickyflash")
-# scrape_recent('2019-08-28 20:00:00', 'Danickyflash')
+def convert_to_sec(hour, minute, sec):
+    return int(hour) * 3600 + int(minute) * 60 + int(sec)
+
+
 print('finito')
