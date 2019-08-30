@@ -3,12 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">-->
-    <link rel="stylesheet" type="text/css" href="static/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 
     <title>ScrapeThePrez - Search the President's Tweets!</title>
 
     <script src="https://kit.fontawesome.com/bf4e573b8b.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- update the version number as needed -->
     <script src="https://scrapetheprez.firebaseapp.com/__/firebase/6.4.2/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
@@ -34,33 +36,52 @@
         body { border-top: 16px solid #E0162B; }
       }
 
-
-
-
-
     </style>
 </head>
 
 <body>
+<div class="header">
+    <div class="container-fluid">
+        <nav class="navbar navbar-fixed-top">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">ScrapeThePrez</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#">Donate</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<br>
+
+<div class="container">
+</div>
 
 <div id="content">
     <h1>Scrape The Prez! Coming to a duck near you</h1>
 
+    <br>
+
     <!-- Customize the Searchbar! -->
-    <form action="/" method="post">
+    <form>
         <input id="bar" name="keywords" type="text" placeholder="Search for candidates...">
-        <a class="search-icon" href="#">
-            <i class="fas fa-search"></i>
-        </a>
     </form>
+
     <img class="logo" src="/static/pictures/normal_size_logo.png"/>
 
+    <!-- tweet content -->
+    <div class="tweets">
+        <h2>Tweets</h2>
+        {{ tweet }}
+    </div>
+
 </div>
 
-<div id="tweets">
-    <h1>i exist</h1>
-    {{ tweet }}
-</div>
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="/https://scrapetheprez.firebaseapp.com/firebase/6.4.0/firebase-app.js"></script>
@@ -91,6 +112,11 @@
           document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
       });
+
+
+
+
+
 
 
 </script>
