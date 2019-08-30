@@ -1,9 +1,35 @@
 /* Colorful and beautiful */
 h1 {
-    font-family: Helvetica;
+    font-family: Trebuchet MS;
+}
+
+.container {
+    width: auto;
+    padding: 10px;
+    height: 30px;
+    background-color: #fff;
+}
+
+.tweets {
+    position: center;
+    text-align: center;
+    width: 100px;
+    overflow: hidden;
+    height: 300px;
+    background-color: #0000ff;
+
+    margin: 30px;
+    border: 5px solid dodgerblue;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
 }
 
 #content {
+    position: center;
+    width: auto;
+    height: 500px;
+    border: 5px #000;
+    padding: 20px;
     text-align: center;
 }
 
@@ -15,16 +41,46 @@ h1 {
 
 #bar {
     padding: 10px;
-    position: center;
-    width: 1000px;
+    padding-right: 200px;
+    resize: horizontal;
+    width: auto;
     overflow: hidden;
     border-radius: 40px;
     height: 40px;
-    background-image: .search-icon;
+    outline: none;
+    justify-content: center;
+}
+
+#bar[type=text] {
+  resize: both;
+  font-family: Trebuchet MS;
+  font-size: 14px;
+  width: 150px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+#bar[type=text]:focus {
+  resize: both;
+  width: 950px;
+  border-color: #0000ff;
+}
+
+.navbar {
+    font-family: Helvetica;
+    font-weight: bold;
+    width: auto;
+    padding: 10px;
+}
+
+.navbar:hover {
+  background-color: #ff0000;
+  opacity: 0.2;
+  filter: alpha(opacity=50);
+  margin: auto;
 }
 
 .search-icon {
-    float: left;
     width: 40px;
     height: 40px;
     border-radius: 50%;

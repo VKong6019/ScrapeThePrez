@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from src.tweet_fetcher import query_tweets
 
 # Flask server for handling HTTP requests
-app = Flask(__name__, template_folder="templates")
+app = Flask(__name__, template_folder="src/templates")
 
 
 @app.route('/', methods=['GET', 'POST'])
