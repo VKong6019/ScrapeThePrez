@@ -53,6 +53,16 @@ def get_tweet(keyword, username):
     # store all tweets from username in array
     tweet_storage = []
     tweet_storage.extend(tweets)
+    old = tweet_storage[-1].id - 1
+
+    # pull all tweets from the desired Twitter user
+    while len(tweets) > 0:
+        tweets = api.user_timeline(username, count=200, include_rts=False, tweet_mode='extended', max_id=old)
+        # save tweets and update id to oldest tweet
+        tweet_storage.extend(tweets)
+        old = tweet_storage[-1].id - 1
+
+    print(len(tweet_storage))
 
     keyword_tweets = []
     for tweet in tweet_storage:
@@ -64,6 +74,7 @@ def get_tweet(keyword, username):
                                         'text': replace_unicode(tweet.full_text)})
             keyword_tweets.append(keyword_tweet)
     print(keyword_tweets)
+    print(len(keyword_tweets))
 
 
 # testing if function can write multiple entries
@@ -152,5 +163,5 @@ def convert_to_sec(hour, minute, sec):
     return int(hour) * 3600 + int(minute) * 60 + int(sec)
 
 
-get_tweet("@pavster2017", "Danickyflash")
+get_tweet("the", "ewarren")
 print('finito')
