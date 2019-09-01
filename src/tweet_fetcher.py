@@ -1,11 +1,8 @@
-import cgi
-import cgitb
-
 from firebase_admin import credentials, firestore
 
 from src.tweet_scraper import scrape_recent, parse_text
 
-cred = credentials.Certificate("./serviceAccountKeys.json")
+cred = credentials.Certificate("src/./serviceAccountKeys.json")
 
 database = firestore.client()
 candidate_collection = database.collection(u'candidates')
@@ -13,7 +10,7 @@ candidate_collection = database.collection(u'candidates')
 
 # TODO: return an array of json tweets instead of texts
 # query the database given a keyword(s) and a candidate
-def query_tweets(search_term, candidate):
+def query_tweets_db(search_term, candidate):
     for doc in candidate_collection.list_documents():
         scrape_recent(candidate_collection.document(doc.id)
                       .collection('last scraped').document('last time').get().get('time'),
@@ -23,7 +20,6 @@ def query_tweets(search_term, candidate):
 
     keyword_array = parse_text(search_term)
 
-    # TODO: make queries non case-sensitive
     # sadly uses multiple queries to search individual words in keyword
     for word in keyword_array:
         # multiple queries for multiple words
@@ -37,4 +33,7 @@ def query_tweets(search_term, candidate):
 
     print('finito')
 
-query_tweets('SCRAPE', 'Danickyflash')
+# TODO: Make history database index
+
+
+query_tweets_db('SCRAPE', 'Danickyflash')

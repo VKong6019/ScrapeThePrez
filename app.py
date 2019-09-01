@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from src.tweet_fetcher import query_tweets
+from src.tweet_fetcher import query_tweets_db
 
 # Flask server for handling HTTP requests
 app = Flask(__name__, template_folder="templates")
@@ -10,7 +10,7 @@ def website():
     if request.method == 'POST':
         tweet = request.form['keywords']
         print("<h2>" + tweet + " </h2>")
-        return render_template('index.html',  tweet=query_tweets(tweet, "Danickyflash"))
+        return render_template('index.html', tweet=query_tweets_db(tweet, "Danickyflash"))
 
     return render_template('index.html')
 
