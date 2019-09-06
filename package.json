@@ -1,0 +1,20 @@
+{
+  "name": "scrapetheprez",
+  "version": "1.0.0",
+  "description": "A web searchbar UI for the 2020 U.S. presidential candidates.",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'build script executed'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VKong6019/ScrapeThePrez.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VKong6019/ScrapeThePrez/issues"
+  },
+  "homepage": "https://github.com/VKong6019/ScrapeThePrez#readme"
+}
