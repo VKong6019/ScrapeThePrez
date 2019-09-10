@@ -5,10 +5,10 @@ import datetime
 from firebase_admin import credentials, firestore
 
 # i've got a secret secret
-key_file = open('./secretKeys.json', 'r')
+key_file = open('./src/secretKeys.json', 'r')
 keys = json.loads(key_file.read())
 
-cred = credentials.Certificate("./serviceAccountKeys.json")
+cred = credentials.Certificate("./src/serviceAccountKeys.json")
 app = firebase_admin.initialize_app(cred)
 
 auth = tweepy.OAuthHandler(keys['consumer_key'], keys['consumer_secret'])
@@ -73,8 +73,17 @@ def get_tweet(keyword, username):
                                         'time': tweet.created_at.__str__(),
                                         'text': replace_unicode(tweet.full_text)})
             keyword_tweets.append(keyword_tweet)
+
+    # creates array of only tweets' text
+    tweets_only = []
+    for keyword_tweet in keyword_tweets:
+        keyword_dict = json.loads(keyword_tweet)
+        tweets_only.append(keyword_dict['text'])
+
     print(keyword_tweets)
     print(len(keyword_tweets))
+
+    return tweets_only
 
 
 # testing if function can write multiple entries
@@ -163,5 +172,5 @@ def convert_to_sec(hour, minute, sec):
     return int(hour) * 3600 + int(minute) * 60 + int(sec)
 
 
-get_tweet("the", "ewarren")
+# get_tweet("the", "ewarren")
 print('finito')

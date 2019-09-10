@@ -2,7 +2,7 @@ from firebase_admin import credentials, firestore
 
 from src.tweet_scraper import scrape_recent, parse_text
 
-cred = credentials.Certificate("src/./serviceAccountKeys.json")
+cred = credentials.Certificate("./src/serviceAccountKeys.json")
 
 database = firestore.client()
 candidate_collection = database.collection(u'candidates')
@@ -36,4 +36,4 @@ def query_tweets_db(search_term, candidate):
 # TODO: Make history database index
 
 
-query_tweets_db('SCRAPE', 'Danickyflash')
+# query_tweets_db('SCRAPE', 'Danickyflash')
