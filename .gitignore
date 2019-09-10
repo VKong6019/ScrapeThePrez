@@ -204,6 +204,10 @@ fabric.properties
 # Google Firebase
 .firebase/
 .firebase/hosting.c3Jj.cache
+firestore.rules
+firestore.indexes.json
+storage.rules
+package.json
 .firebaserc
 database.rules.json
 firebase.json
