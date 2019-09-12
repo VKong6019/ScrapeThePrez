@@ -4,6 +4,7 @@ import firebase_admin
 import datetime
 from firebase_admin import credentials, firestore
 
+# TODO: create objects based on candidate profile
 # i've got a secret secret
 key_file = open('./src/secretKeys.json', 'r')
 keys = json.loads(key_file.read())
@@ -21,6 +22,14 @@ candidate_collection = database.collection('candidates')
 
 # it's a surprise tool that will help us later (transactions for doc read/write operations)
 tweet_transaction = database.transaction()
+
+
+class Profile:
+    def __init__(self, name, username, tweets):
+        self.name = name
+        self.username = username
+        self.tweets = tweets
+
 
 # list of all candidates
 republicans = ["Donald J. Trump", "Joe Walsh", "William F. Weld"]
@@ -62,26 +71,20 @@ def get_tweet(keyword, username):
         tweet_storage.extend(tweets)
         old = tweet_storage[-1].id - 1
 
-    print(len(tweet_storage))
-
-    keyword_tweets = []
+    input_tweets = []
     for tweet in tweet_storage:
         # if keyword is found in the tweet text, add to array of tweets with keyword
         if replace_unicode(tweet.full_text).find(keyword) != -1:
-            print(tweet.full_text)
             keyword_tweet = json.dumps({'name': tweet.user.screen_name,
                                         'time': tweet.created_at.__str__(),
                                         'text': replace_unicode(tweet.full_text)})
-            keyword_tweets.append(keyword_tweet)
+            input_tweets.append(keyword_tweet)
 
     # creates array of only tweets' text
     tweets_only = []
-    for keyword_tweet in keyword_tweets:
+    for keyword_tweet in input_tweets:
         keyword_dict = json.loads(keyword_tweet)
         tweets_only.append(keyword_dict['text'])
-
-    print(keyword_tweets)
-    print(len(keyword_tweets))
 
     return tweets_only
 

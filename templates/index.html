@@ -22,7 +22,7 @@
     <script src="https://scrapetheprez.firebaseapp.com/__/firebase/init.js"></script>
 
     <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; height:100% }
       #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
       #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
       #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
@@ -32,17 +32,17 @@
       #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
 
       h1 { font-family: Trebuchet MS; }
-      #content { position: center; width: auto; height: 500px; border: 5px #000; padding: 20px; text-align: center; }
+      #content { position: center; width: auto; height: 100%; border: 5px #000; padding: 20px; text-align: center; }
       #bar { padding: 20px; resize: horizontal; width: auto; overflow: hidden; border-radius: 40px; height: 70px; outline: none; justify-content: center; }
       #bar[type=text] { font-family: Trebuchet MS; font-size: 18px; width: 300px; -webkit-transition: width 0.4s ease-in-out; transition: width 0.4s ease-in-out; }
       #bar[type=text]:focus { resize: both; width: 800px; border-color: #0000ff; }
 
-      #tweets { display: inline-block; width: 500px; overflow: hidden; height: auto; margin: 30px; border: 5px solid #0000ff; opacity: 0.6; filter: alpha(opacity=60); }
+      #tweets { display: inline-block; width: 500px; overflow: hidden; height: auto; margin: 30px; border: 5px solid #0000ff; opacity: 0.6; filter: alpha(opacity=60); white-space: pre-wrap;}
 
       .logo { padding: 20px; width: 500px; height: 500px; }
       header { font-color: #fff }
       nav { background-color: #B22234; }
-      footer { background-color: #B22234; bottom: 0; left: 0; width: 100%; position: absolute; height: auto; text-align: center; }
+      footer { background-color: #B22234; bottom: 0; left: 0; width: 100%; position: relative; height: auto; text-align: center;}
       .navbar { font-family: Helvetica; font-weight: bold; width: auto; padding: 10px; }
       .navbar:hover { background-color: #3C3B6E; opacity: 0.8; filter: alpha(opacity=50); margin: auto; }
       .search-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; }
@@ -105,7 +105,9 @@
     <!-- tweet content -->
     <div id="tweets">
         <h2>Tweets</h2>
-        {{ tweet }}
+        {% for text in tweet %}
+        <p> {{ text }} </p>
+        {% endfor %}
     </div>
 </div>
 
