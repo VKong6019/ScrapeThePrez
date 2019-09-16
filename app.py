@@ -1,16 +1,17 @@
-from flask import Flask, render_template, request
+import os
+
+from flask import Flask, render_template, request, url_for
 from src.tweet_scraper import get_tweet
 
 # Flask server for handling HTTP requests
 app = Flask(__name__, template_folder="templates")
 
-
 @app.route('/', methods=['GET', 'POST'])
 def website():
     if request.method == 'POST':
         tweet = request.form['keywords']
-        print("<h2>" + tweet + " </h2>")
-        return render_template('index.html', tweet=get_tweet(tweet, "Danickyflash"))
+        # TODO: Make a candidate selector
+        return render_template('index.html', tweet=get_tweet(tweet, "Danickyflash"), input=tweet)
 
     return render_template('index.html')
 

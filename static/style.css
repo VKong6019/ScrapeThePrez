@@ -1,0 +1,98 @@
+
+a, h1, h2, h3, h4, h5, h6, p {
+    font-family: Trebuchet MS;
+}
+
+#content {
+    width: auto;
+    height: 100vh;
+    padding: 20px;
+    text-align: center;
+
+}
+
+#bar {
+    padding: 20px;
+    resize: horizontal;
+    width: auto;
+    overflow: hidden;
+    border-radius: 40px;
+    height: 70px;
+    outline: none;
+    justify-content: center;
+}
+
+#bar[type=text] {
+    font-family: Trebuchet MS;
+    font-size: 18px;
+    width: 300px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+#bar[type=text]:focus {
+    resize: both;
+    width: 800px;
+    border-color: #0000ff;
+}
+
+#tweets {
+    display: inline-block;
+    min-width: 300px;
+    overflow: hidden;
+    height: auto;
+    margin: 30px;
+    border-radius: 10px;
+    border: 5px solid #0000ff;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    white-space: pre-wrap;
+    padding: 20px;
+}
+
+#tweets p {
+    font-size: 20px;
+}
+
+.logo {
+    padding: 20px;
+    width: 500px;
+    height: 500px;
+}
+
+header {
+    font-color: #fff
+}
+
+footer {
+    background-color: #B22234;
+    width: 100%;
+    padding: 20px;
+    height: auto;
+    text-align: center;
+}
+
+.navbar {
+    background-color: #B22234;
+    font-family: Helvetica;
+    font-weight: bold;
+    width: auto;
+    padding: 10px;
+}
+
+.navbar:hover {
+    background-color: #3C3B6E;
+    opacity: 0.8;
+    filter: alpha(opacity=50);
+    margin: auto;
+}
+
+.search-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+

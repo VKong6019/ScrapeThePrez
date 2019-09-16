@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css?q=21">
 
     <title>ScrapeThePrez - Search the President's Tweets!</title>
 
@@ -20,45 +21,6 @@
     <script defer src="https://scrapetheprez.firebaseapp.com/__/firebase/6.4.2/firebase-firestore.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
     <script src="https://scrapetheprez.firebaseapp.com/__/firebase/init.js"></script>
-
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; height:100% }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-
-      h1 { font-family: Trebuchet MS; }
-      #content { position: center; width: auto; height: 100%; border: 5px #000; padding: 20px; text-align: center; }
-      #bar { padding: 20px; resize: horizontal; width: auto; overflow: hidden; border-radius: 40px; height: 70px; outline: none; justify-content: center; }
-      #bar[type=text] { font-family: Trebuchet MS; font-size: 18px; width: 300px; -webkit-transition: width 0.4s ease-in-out; transition: width 0.4s ease-in-out; }
-      #bar[type=text]:focus { resize: both; width: 800px; border-color: #0000ff; }
-
-      #tweets { display: inline-block; width: 500px; overflow: hidden; height: auto; margin: 30px; border: 5px solid #0000ff; opacity: 0.6; filter: alpha(opacity=60); white-space: pre-wrap;}
-
-      .logo { padding: 20px; width: 500px; height: 500px; }
-      header { font-color: #fff }
-      nav { background-color: #B22234; }
-      footer { background-color: #B22234; bottom: 0; left: 0; width: 100%; position: relative; height: auto; text-align: center;}
-      .navbar { font-family: Helvetica; font-weight: bold; width: auto; padding: 10px; }
-      .navbar:hover { background-color: #3C3B6E; opacity: 0.8; filter: alpha(opacity=50); margin: auto; }
-      .search-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; }
-
-    @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #E0162B; }
-      }
-
-
-
-
-
-
-
-    </style>
 </head>
 
 <body>
@@ -66,8 +28,7 @@
     <div class="container-fluid">
         <nav class="navbar navbar-fixed-top">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">ScrapeThePrez
-                    <img class="logo" height="50" width="50" src="/static/pictures/normal_size_logo.png"/></a>
+                <a class="navbar-brand" href="#">ScrapeThePrez</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -84,28 +45,24 @@
 <br>
 <br>
 <div id="content">
-    <h1>Scrape The Prez! Coming to a duck near you</h1>
-
-    <br>
-    <br>
-    <br>
-
-    <!-- Customize the Searchbar! -->
-    <form method="post" id="input-form">
-        <input id="bar" name="keywords" type="text" placeholder="Search for political topics...">
-        <output name="input" form="input-form"></output>
-    </form>
-
-    <br>
-    <br>
-    <div id="input">
-        <h2> Search: {{input}} </h2>
+    <div id="search-container">
+        <h1>Scrape The Prez! Coming to a duck near you</h1>
+        <!--    <img class="logo" height="50" width="50" src="/static/pictures/normal_size_logo.png"/>-->
+        <!-- Customize the Searchbar! -->
+        <form method="post" id="input-form">
+            <input id="bar" name="keywords" type="text" placeholder="Search for political topics...">
+            <output name="input" form="input-form"></output>
+        </form>
     </div>
-
+    <hr>
+    <script src="animations.js"></script>
+    <div id="input">
+        <h2> Search: {{ input }} </h2>
+    </div>
     <!-- tweet content -->
     <div id="tweets">
-        <h2>Tweets</h2>
         {% for text in tweet %}
+        <h4> {{ username }} </h4>
         <p> {{ text }} </p>
         {% endfor %}
     </div>
@@ -120,7 +77,6 @@
             <h3>ScrapeThePrez</h3>
             <p>Web Searchbar UI for the 2020 U.S. Presidential candidates.</p>
         </div>
-    </div>
     </div>
 
     <!-- Copyright -->
@@ -160,8 +116,6 @@
           document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
       });
-
-
 
 </script>
 </body>
