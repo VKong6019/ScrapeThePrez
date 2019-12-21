@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css?q=21">
+
+    <title>ScrapeThePrez - Search the President's Tweets!</title>
+
+    <script src="https://kit.fontawesome.com/bf4e573b8b.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <button type="button" id="toggle-sidebar" class="btn btn-primary" onClick="openSidebar()">≡</button>
+            <img class="logo"
+                 src="https://github.com/VKong6019/ScrapeThePrez/raw/master/static/pictures/normal_size_logo.png"/>
+        </div>
+        <ul class="nav navbar text-center">
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Donate</a>
+            </li>
+        </ul>
+        <div class="copyright">
+            <h6>Web app that searches tweets from the 2020 U.S. Presidential candidates.</h6>
+            <p>© 2019 potatoez <a href="https://github.com/VKong6019/ScrapeThePrez">GitHub</a></p>
+        </div>
+    </nav>
+
+    <div id="content">
+        <div class="banner">
+            <h1>Scrape The President!</h1>
+            <h2>Find out what the U.S. Presidential candidates have been saying...</h2>
+        </div>
+        <div id="search-bar">
+            <form method="post" id="input-form">
+                <i class="fa fa-search searchIcon"></i>
+                <input id="query-bar" name="keywords" type="text" placeholder="Search for political topics...">
+                <output name="input" form="input-form"></output>
+            </form>
+        </div>
+
+        <!-- EDIT HERE -->
+        <div class="query-results">
+            <!-- Objects for search results -->
+            <div id="input">
+                <h4> Search Term: </h4>
+            </div>
+            <!-- tweet content -->
+            <div class="tweet">
+                <div class="tweet-header">
+                    <h4> USERNAME</h4>
+                </div>
+                <div class="tweet-body">
+                    <p> "Tweet Content Here"</p>
+                </div>
+            </div>
+        </div>
+        <!-- EDIT ABOVE -->
+
+    </div>
+</div>
+</body>
+</html>

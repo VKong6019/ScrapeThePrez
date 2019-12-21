@@ -1,0 +1,198 @@
+a, h1, h2, h3, h4, h5, h6, p, #query-bar[type=text]  {
+    font-family: Trebuchet MS;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+/* SIDEBAR */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0, 0.2);
+    font-family: Helvetica;
+    transition: all 0.3s;
+    height: 100%;
+    z-index: 1;
+    transition: 0.5s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar ul li a {
+    font-weight: bold;
+    font-size: 1.2em;
+    display: block;
+}
+
+.toggle {
+  padding: 10px;
+  text-align: right;
+}
+
+#toggle-sidebar {
+  position: absolute;
+  margin: 10px;
+  font-size: 18px;
+  top: 0;
+  right: 0px;
+  text-align: right;
+}
+
+.logo {
+    margin-top: 30%;
+    width: 350px;
+    height: 350px;
+}
+
+.copyright {
+    margin-top: 20%;
+    font-size: 12px;
+    padding: 20px;
+    max-width: 350px;
+    text-align: center;
+}
+
+/* MAIN CONTENT */
+#content {
+    position: absolute;
+    min-height: 100vh;
+    top: 0;
+    right: 0;
+    width: calc(100% - 350px);
+    transition: all 0.3s;
+    border: 5px #000;
+    padding: 20px;
+    text-align: center;
+    transition: margin-left .5s;
+}
+
+#content h1 {
+  margin-top: 15%;
+  font-weight: bold;
+  font-size: 60px;
+  color: #3C3B6E;
+  min-width: 200px;
+}
+
+#content h2 {
+  color: #BF0A30;
+  min-width: 200px;
+}
+
+#content h1, h2 {
+  margin: 15px;
+}
+
+/* Use with sidebar animations for overlaying shadow on content section */
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  transition: all 0.5s ease-in-out;
+  display: none;
+  position: fixed;
+}
+
+.banner {
+  top: 0;
+  right: 0;
+  margin: 30px;
+  border: 1px solid #fff;
+  padding: 10px;
+}
+
+/* SEARCH BAR */
+
+#search-bar {
+    font-size: 18px;
+    margin-top: 10%;
+    position: relative;
+    display: inline-flex;
+    padding: 10px;
+    overflow: hidden;
+    border-radius: 40px;
+    border: 2px solid #3C3B6E;
+    min-width: 250px; 
+    width: 50%;
+}
+
+#search-bar:hover {
+  outline: none;
+  border: 2px solid #1DA1F2;
+}
+
+#query-bar {
+  resize: horizontal;
+}
+
+#query-bar[type=text] {
+  width: 100%;
+  border: 0;
+  outline: none;
+}
+
+#query-bar[type=text]:focus {
+  width: 80%;
+  resize: both;
+  border: 0;
+  outline: none;
+  transition: width 0.4s ease-in-out;
+}
+
+.searchIcon {
+  padding: 5px;
+}
+
+.query-results #input {
+  margin: 20px;
+}
+
+/* TWEET BOX */
+.tweet {
+    margin: 25px;
+    /*background: linear-gradient(35deg, #0000FF, #FF0000, rgb(204, 204, 205, 0.5)); */
+    display: inline-block;
+    width: 40%;
+    min-width: 100px;
+    overflow: hidden;
+    height: auto;
+    border-radius: 20px;
+    border: 3px solid #1DA1F2;
+    white-space: pre-wrap;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    color: #FFF;
+    background: #1DA1F2;
+}
+
+.tweet h4 {
+    font-size: 36px;
+}
+
+.tweet p {
+    font-size: 20px;
+}
+
+.tweet .tweet-header {
+  top: 0;
+  width: 100%;
+}
+
+.tweet .tweet-body {
+  margin: 20px;
+  color: #1DA1F2;
+  width: 90%;
+  background:#fff;
+}
+
+/* MOBILE */
+@media screen and (max-height: 450px) {
+  #sidebar {padding-top: 15px;}
+  #sidebar ul {font-size: 18px;}
+}
